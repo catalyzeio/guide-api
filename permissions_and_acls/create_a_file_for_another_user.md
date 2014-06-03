@@ -1,33 +1,41 @@
 # Create a File for Another User
 
-Often in the medical field and in clincial settings it is commom that data is being collected and processsed *on behalf* of the patient. For example, a radiologist may want to share image data with a patient to show them that they are cancer free. Of course this example involves PHI and Catalyze BaaS makes this scenario very easy and secure.
+Often in the medical field and in clinical settings it is common that data is being collected and processed *on behalf* of the patient. For example, a radiologist may want to share image data with a patient to show them that they are cancer free. Of course this example involves PHI and Catalyze BaaS makes this scenario very easy and secure.
 
 In the following examples, we will assume that Alice is the medical doctor and is sharing medical data, in the form of files, with Bob, her patient. During the **Getting Started** section we configured ExampleApp to have Alice and Bob as users, with Alice being a Supervisor. If you did not run through the Getting Started steps, please do so before continuing this guide.
+
+Values needed to run this example:
+
+| Value | Description |
+| -- | -- |
+| *filePath* | The full path of a file to upload. Can be an image, PDF, etc. |
+| *apiKey* | The API key for ExampleApp |
+| *aliceSessionToken* | a valid session token for Alice obtained from logging in using *apiKey* |
+| *bobSessionToken* | a valid session token for Bob obtained from logging in using *apiKey* |
+| *aliceUsersId* | Alice's *usersId*, obtained when signing Alice in to ExampleApp |
+| *bobUsersId* | Bob's *usersId*, obtained when signing Bob in to ExampleApp |
 
 ## Alice Uploads a File for Bob
 
 As a supervisor, Alice has sufficient permission to upload a file and assign its ownership to Bob. The backend storage system will record Alice as the **author** and Bob as the **owner** for any files that Alice uploads to Bob.
 
-The call below has four values to replace:
+Execute this command to upload the file to Bob:
 
-- **filePath**: path to the file to upload
-- **apiKey**: ExampleApp's API key
-- **sessionToken**: Alice's session token for ExampleApp
-- **bobUsersId**: Bob's **usersId**
-
-Execute the command to upload the file to Bob:
-
-    curl -F "phi=true" -F "file=<filePath>" -H "X-Api-Key: browser <apiKey>" -H "Authorization: Bearer <sessionToken>" -X POST https://api.catalyze.io/v2/users/<bobUsersId>/files
+    curl -F "phi=true" -F "file=@<filePath>" -H "X-Api-Key: browser <apiKey>" -H "Authorization: Bearer <aliceSessionToken>" -X POST https://api.catalyze.io/v2/users/<bobUsersId>/files
 
 The call will return with an HTTP 200 along with a JSON body containing **filesId**. Store that value to test that Bob can retrieve the file and then delete it when he is done with it.
 
+Verify that Alice can download the file she just created:
+
+    curl -H "Accept: application/octet-stream" -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <aliceSessionToken>" -X GET https://api.catalyze.io/v2/users/files/<filesId> > img.png
+
 ## Bob Receives the File
 
-Once the file is uploaded to Bob, he has complete control over the file as he is the file's **owner**. Likewise Alixe has complete control over the file as she is the **author**. We will now verify that Bob can manipulate the file.
+Once the file is uploaded to Bob, he has complete control over the file as he is the file's **owner**. Likewise, Alice has complete control over the file as she is the **author**. We will now verify that Bob can manipulate the file.
 
-Replace **apiKey** with ExampleApp's API key and **sessionToken** with Bob's session token and execute the following command to return Bob's list of files:
+Execute the following command to return Bob's list of files:
 
-    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <sessionToken>" -X GET https://api.catalyze.io/v2/users/files
+    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <bobSessionToken>" -X GET https://api.catalyze.io/v2/users/files
 
 Example result:
 
@@ -35,13 +43,13 @@ Example result:
 
 The **filesId** from the previous section should appear in the list.
 
-Execute the following command to downlodd the file after replacing the values for **apiKey**, **sessionToken** and **filesId**:
+Execute the following command to download the file as Bob:
 
-    curl -H "Accept: application/octet-stream" -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <sessionToken>" -X GET https://api.catalyze.io/v2/users/files/<filesId> > img.png
+    curl -H "Accept: application/octet-stream" -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <bobSessionToken>" -X GET https://api.catalyze.io/v2/users/files/<filesId> > img.png
 
 Finally, changing the HTTP method to DELETE will allow Bob to delete the file.
 
-    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <sessionToken>" -X DELETE https://api.catalyze.io/v2/users/files/<filesId>
+    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <bobSessionToken>" -X DELETE https://api.catalyze.io/v2/users/files/<filesId>
 
 Example result:
 
@@ -55,7 +63,7 @@ Trying to have Bob upload a file to Alice will fail as Bob, a regular user, does
 
 Here is an example call that will fail with a HTTP 403 and a JSON error message within the result body.
 
-    curl -F "phi=true" -F "file=@/Users/uphoff/Desktop/img.png" -H "X-Api-Key: browser example.app afa81034-0d7c-4874-924a-e13fee59055c" -H "Authorization: Bearer 6b02f782-f71d-4b47-be40-ee8a018804af" -X POST https://api.catalyze.io/v2/users/0ebfeab0-b0f7-41a1-9f7e-bac7390eb76c/files
+    curl -F "phi=true" -F "file=@<filePath>" -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <bobSessionToken>" -X POST https://api.catalyze.io/v2/users/<aliceUsersId>/files
 
 Error message:
 

@@ -1,3 +1,5 @@
 # Building Custom Classes
 
-Section covering how to manage custom classes (create, update, delete) and create/read/update/delete data within custom classes.
+This section is coming soon.
+
+We are eager to get your feedback on all Catalyze products and services, including this guide. If you have questions or comments please reach out to us at [support@catalyze.io](mailto:support@catalyze.io).

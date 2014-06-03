@@ -1,4 +1,4 @@
-# Getting Started Guide
+# Getting Started
 
 This guide is intended to familiarize you with making API calls against the [Catalyze Mobile backend as a Service](https://catalyze.io/backend-as-a-service/) (BaaS)
 and configure an environment that will allow you to quickly follow other Catalyze guides.
@@ -19,7 +19,7 @@ To access the API's administrative functions, many of which are mirrored in the 
 
 ### From the API:
 
-After verifying that your account is active by successfully logging in to the Dashboard, run the following command to obtain a session token to use on additional calls to the API. You will need to replace the values for **&lt;username&gt;** and **&lt;password&gt;** with
+After verifying that your account is active by successfully logging in to the Dashboard, run the following command to obtain a session token to use on additional calls to the API. You will need to replace the values for **&lt;username&gt;** and **&lt;password&gt;** with your credentials.
 
     curl -H "X-Api-Key: browser developer.catalyze.io 32a384f5-5d11-4214-812e-b35ced9af4d7"  https://api.catalyze.io/v2/auth/signin -X POST -d '{"username": "<username>","password": "<password>"}'
 
@@ -102,7 +102,7 @@ In this section we will create two users within ExampleApp for use in future gui
 
 We will be configuring the users such that Alice belongs to the **Supervisor** role, granting her the ability to create, read, update and delete any information within the application. As a regular user, Bob only has access to his data, and data that has been explicitly shared with him.
 
-Managing users and roles to protect Protected Health Information (PHI) is an important aspect of building any Health IT application. We will cover additional cababilities for managing and protecting PHI in future chapters.
+Managing users and roles to protect Protected Health Information (PHI) is an important aspect of building any Health IT application. We will cover additional capabilities for managing and protecting PHI in future chapters.
 
 ### Create Alice
 
@@ -116,7 +116,7 @@ The activation email should appear in the email account provided within a few mi
 
 ### Create Bob
 
-The command to sign up Bob is the same as signing up Alice but you will have to provide a diffrent email than the one used to sign up Alice above.
+The command to sign up Bob is the same as signing up Alice but you will have to provide a different email than the one used to sign up Alice above.
 
 **Hint:** if you use gmail or Google Apps add a **+** after your regular email handle followed by a unique string (e.g. *you+bob@gmail.com*) to generate a unique address that will get sent to your regular account.
 
@@ -138,11 +138,11 @@ Log in as Alice by running the command below.
 
     curl -H "X-Api-Key: browser example.app afa81034-0d7c-4874-924a-e13fee59055c" -H "Content-Type: application/json" https://api.catalyze.io/v2/auth/signin -X POST -d '{"username":"alice","password":"alice123"}'
 
-Save the **sessionToken** for later use.
+Save the **sessionToken** for future use.
 
 ### Make Alice a Supervisor
 
-Update the application with Alice's **usersId** in the supervisors array. This is currently cumbersome via the API. You need to include the application's name, description and current list of users. This information can be retreived by GETing the application. Replace the value for **&lt;appId&gt;** below and run the command.
+Update the application with Alice's **usersId** in the supervisors array. This is currently cumbersome via the API. You need to include the application's name, description and current list of users. This information can be retrieved by GETing the application. Replace the value for **&lt;appId&gt;** below and run the command.
 
     curl -H "X-Api-Key: browser developer.catalyze.io 32a384f5-5d11-4214-812e-b35ced9af4d7" -H "Authorization: Bearer 35206c61-b186-4a5a-9979-bce2e2fcaae8" -H "Content-Type: application/json" https://api.catalyze.io/v2/app/<appId> -X GET
 
@@ -152,11 +152,11 @@ The update can then be constructed to add Alice's **usersId** to the **superviso
 
 The result JSON should now show Alice's **usersId** in the **supervisor** array. Making this operation easier is on our roadmap.
 
-## Get an Admin-level Session token and API Key
+## Get an Administrator-level Session Token and API Key
 
 For several operations within future guides, administrator-level access will be needed. In some cases these operations can be handled through the Dashboard, but not always.
 
-To perform admininstrator-level operations from the command line, you will need to follow the steps below to obtain a session token and transient (temporary) API key. The API key will be generated on-the-fly by the API and is only valid for use with the included session token, and only during its lifetime (currently 24 hours).
+To perform administrator-level operations from the command line, you will need to follow the steps below to obtain a session token and transient (temporary) API key. The API key will be generated on-the-fly by the API and is only valid for use with the included session token, and only during its lifetime (currently 24 hours).
 
 First, get the **appId** for ExampleApp by clicking on the application within the [Application section](https://dashboard-staging.catalyze.io/applications) of the Dashboard.
 
@@ -183,7 +183,7 @@ Did not see the custom class creation button.
 
 ## Summary
 
-The purpose of this section was to get you familiar with the API and the Dashboard and get your develper account environment configured such that you are ready to complete the rest of the guides in thise section.
+The purpose of this section was to get you familiar with the API and the Dashboard and get your developer account environment configured such that you are ready to complete the rest of the guides in this section.
 
 Please log in to the Dashboard and check that you see the following items to verify that this section was completed successfully:
 
