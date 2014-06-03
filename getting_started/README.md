@@ -152,6 +152,50 @@ The update can then be constructed to add Alice's **usersId** to the **superviso
 
 The result JSON should now show Alice's **usersId** in the **supervisor** array. Making this operation easier is on our roadmap.
 
+## Get an Admin-level Session token and API Key
+
+For several operations within future guides, administrator-level access will be needed. In some cases these operations can be handled through the Dashboard, but not always.
+
+To perform admininstrator-level operations from the command line, you will need to follow the steps below to obtain a session token and transient (temporary) API key. The API key will be generated on-the-fly by the API and is only valid for use with the included session token, and only during its lifetime (currently 24 hours).
+
+First, get the **appId** for ExampleApp by clicking on the application within the [Application section](https://dashboard-staging.catalyze.io/applications) of the Dashboard.
+
+Next, use the **/auth/all** route using your developer portal **sessionToken** (from the **Log In** section above) to get a valid session and transient API key for ExampleApp.
+
+    curl -H "X-Api-Key: browser developer.catalyze.io 32a384f5-5d11-4214-812e-b35ced9af4d7" -H "Authorization: Bearer <sessionToken>" -H "Content-Type: application/json" https://api.catalyze.io/v2/auth/all -X GET
+
+Find the entry matching ExampleApp's **appId** and store the values for **session** and **apiKey**. These values will be used in other parts of the guide to perform administrator level operations. Record them for future use.
+
+## Create a Custom Class
+
+For many of the examples in this guide we need a custom class within an application to test against.
+We will now create a class called "ExampleClass". The class has two fields: **name**, a string, and **type**, an integer.
+
+### From the API:
+
+Using the values for **session** and **apiKey** from the previous section, replace the values below and run the following command.
+
+    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <session>" -H "Content-Type: application/json" https://api.catalyze.io/v2/classes -X POST -d '{"name":"ExampleClass", "schema":{"name":"string", "type":"integer"},phi=true}'
+
+### From the Dashboard:
+
+Did not see the custom class creation button.
+
 ## Summary
 
-Created an org, app, api key, custom class and two users. One supervisor.
+The purpose of this section was to get you familiar with the API and the Dashboard and get your develper account environment configured such that you are ready to complete the rest of the guides in thise section.
+
+Please log in to the Dashboard and check that you see the following items to verify that this section was completed successfully:
+
+- Organization: ExampleOrg
+- Application: ExampleApp
+- ExampleApp API key
+- Custom class: ExampleClass
+
+Also verify that you have recorded the values for the following (although they can be regenerated at any time by following the above steps again):
+
+- A **sessionToken** for the Dashboard
+- Values for **sessionToken** and **usersId** for both Alice and Bob
+- Admin-level session token and corresponding API-key for ExampleApp
+
+Also make sure that Alice and Bob's **usersId**s are in the **user** array when you GET the application (see Create an Application above). Alice's **usersId** should also appear in the **supervisor** array.
