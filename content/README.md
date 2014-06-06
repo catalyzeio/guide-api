@@ -1,4 +1,4 @@
-# Catalyze Mobile Backend as a Service Guide
+# Catalyze BaaS Guide
 
 At [Catalyze](https://www.catalyze.io/), we are working hard to make building HIPAA-compliant Health Care applications easier for developers. This guide will walk you through many, but not all, aspects of the [Catalyze Mobile Backend as a Service](https://www.catalyze.io/backend-as-a-service/) (BaaS).
 

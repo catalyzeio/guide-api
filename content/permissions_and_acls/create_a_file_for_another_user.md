@@ -69,5 +69,5 @@ Error message:
 
     {"errors":[{"message":"Insufficient privileges to perform the requested action.","code":403}]}
 
-To make the above call work successfully, we will need to elevate Bob's permissions so that he can post files to Alice. See section 7.3 of this guide form information on how to work with Access Control Lists (ACLs).
+To make the above call work successfully, we will need to elevate Bob's permissions so that he can post files to Alice. See [section 7.3](acls_for_custom_classes_and_files.md) of this guide form information on how to work with Access Control Lists (ACLs).
 

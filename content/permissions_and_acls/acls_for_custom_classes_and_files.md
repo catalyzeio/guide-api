@@ -28,7 +28,7 @@ Here is a summary of the permission types:
 
 ## Granting Create on Files
 
-In section 7.1, Bob attempted to upload a file to Alice but failed. To make this work, the application administrator can grant Bob create permission on files within the application.
+In [section 7.1](create_a_file_for_another_user.md), Bob attempted to upload a file to Alice but failed. To make this work, the application administrator can grant Bob create permission on files within the application.
 
     curl -H "X-Api-Key: <adminApiKey>" -H "Authorization: Bearer <adminSessionToken>" -H "Content-Type: application/json" -X POST https://api.catalyze.io/v2/acl/core/files/<bobUsersId> -d '["create"]'
 
@@ -72,4 +72,4 @@ After running the above commands Bob is back to having default permissions on fi
 
 Revoking permissions on ExampleClass is almost the same as revoking file permissions, aside from a few changes to the route:
 
-   curl -H "X-Api-Key: <adminApiKey>" -H "Authorization: Bearer <adminSessionToken>" -H "Content-Type: application/json" -X DELETE https://api.catalyze.io/v2/acl/custom/ExampleClass/<bobUsersId> -d '["create","read","update","delete"]'
+    curl -H "X-Api-Key: <adminApiKey>" -H "Authorization: Bearer <adminSessionToken>" -H "Content-Type: application/json" -X DELETE https://api.catalyze.io/v2/acl/custom/ExampleClass/<bobUsersId> -d '["create","read","update","delete"]'
