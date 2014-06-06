@@ -49,7 +49,7 @@ Record the **orgId** value in the JSON response for use in future calls.
 
 ### From the Dashboard:
 
-Organizations can be created from the [Organization section](https://dashboard-staging.catalyze.io/account/organization/) of the Dashboard. The **orgId** is shown in the Overview section, as **ID**, when you click on an organization.
+Organizations can be created from the [Organization section](https://dashboard.catalyze.io/account/organization/) of the Dashboard. The **orgId** is shown in the Overview section, as **ID**, when you click on an organization.
 
 ## Create an Application
 
@@ -65,7 +65,7 @@ Record the **appId** value for future calls.
 
 ### From the Dashboard:
 
-Go to the [Applications section](https://dashboard-staging.catalyze.io/applications/) of the Dashboard and click **Add new app** from the left navigation bar. Fill in the name ("ExampleApp") and description information. Select ExampleOrg from the list to create the application within that organization.
+Go to the [Applications section](https://dashboard.catalyze.io/applications/) of the Dashboard and click **Add new app** from the left navigation bar. Fill in the name ("ExampleApp") and description information. Select ExampleOrg from the list to create the application within that organization.
 
 Once the application is created, note the value of **Application ID** when clicking on the application in the Dashboard. That value will be used as the **appId** in future API calls.
 
@@ -91,7 +91,7 @@ where **&lt;id&gt;** is the value of **id** from the response JSON.
 
 ### From the Dashboard:
 
-Can't do this on staging yet.
+Go to the [Applications section](https://dashboard.catalyze.io/applications/) of the Dashboard and click on ExampleApp and then the **API Keys section**. Then click the **add api key** button to generate a key.
 
 ## Create Users
 
@@ -158,7 +158,7 @@ For several operations within future guides, administrator-level access will be 
 
 To perform administrator-level operations from the command line, you will need to follow the steps below to obtain a session token and transient (temporary) API key. The API key will be generated on-the-fly by the API and is only valid for use with the included session token, and only during its lifetime (currently 24 hours).
 
-First, get the **appId** for ExampleApp by clicking on the application within the [Application section](https://dashboard-staging.catalyze.io/applications) of the Dashboard.
+First, get the **appId** for ExampleApp by clicking on the application within the [Application section](https://dashboard.catalyze.io/applications) of the Dashboard.
 
 Next, use the **/auth/all** route using your developer portal **sessionToken** (from the **Log In** section above) to get a valid session and transient API key for ExampleApp.
 
@@ -179,7 +179,7 @@ Using the values for **session** and **apiKey** from the previous section, repla
 
 ### From the Dashboard:
 
-Did not see the custom class creation button.
+Select ExampleApp in the Dashboard and then click the **Custom Classes** section. Click the **add custom class** button and then enter ExampleClass as the name of the class. Under the **Add Entry** section, create entries for **name** of type **string** and **type** of type **integer**. Click the PHI checkbox and then **Add** to finish creating the class.
 
 ## Summary
 
