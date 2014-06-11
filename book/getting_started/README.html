@@ -46,7 +46,7 @@
 
 
         
-    <div class="book" data-github="catalyzeio/guide-api" data-level="1" data-basepath=".." data-revision="1402085178168">
+    <div class="book" data-github="catalyzeio/guide-api" data-level="1" data-basepath=".." data-revision="1402092254186">
     <div class="book-header">
     <!-- Actions Left -->
     <a href="#" class="btn pull-left toggle-summary" aria-label="Toggle summary"><i class="fa fa-align-justify"></i></a>
@@ -308,7 +308,7 @@
 
                 <div class="page-inner">
                 
-                    <section class="normal" id="section-gitbook_59">
+                    <section class="normal" id="section-gitbook_320">
                     
                         <h1 id="getting-started">Getting Started</h1>
 <p>This guide is intended to familiarize you with making API calls against the <a href="https://catalyze.io/backend-as-a-service/" target="_blank">Catalyze Mobile backend as a Service</a> (BaaS)
@@ -341,7 +341,7 @@ and configure an environment that will allow you to quickly follow other Catalyz
 <pre><code>curl -H &quot;X-Api-Key: browser developer.catalyze.io 32a384f5-5d11-4214-812e-b35ced9af4d7&quot; -H &quot;Authorization: Bearer &lt;sessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; https://api.catalyze.io/v2/org -X POST -d &#39;{&quot;name&quot;: &quot;ExampleOrg&quot;, &quot;description&quot;: &quot;An example for testing ACLs.&quot;}&#39;
 </code></pre><p>Record the <strong>orgId</strong> value in the JSON response for use in future calls.</p>
 <h3 id="from-the-dashboard-">From the Dashboard:</h3>
-<p>Organizations can be created from the <a href="https://dashboard-staging.catalyze.io/account/organization/" target="_blank">Organization section</a> of the Dashboard. The <strong>orgId</strong> is shown in the Overview section, as <strong>ID</strong>, when you click on an organization.</p>
+<p>Organizations can be created from the <a href="https://dashboard.catalyze.io/account/organization/" target="_blank">Organization section</a> of the Dashboard. The <strong>orgId</strong> is shown in the Overview section, as <strong>ID</strong>, when you click on an organization.</p>
 <h2 id="create-an-application">Create an Application</h2>
 <p>The next step is to create an application within ExampleOrg. We suggest using a new application for working through this and other guides, but you can use an existing one if you like. We will refer to this application as &quot;ExampleApp&quot; for all future guides and references to the application. We suggest you name your application accordingly.</p>
 <h3 id="from-the-api-">From the API:</h3>
@@ -349,7 +349,7 @@ and configure an environment that will allow you to quickly follow other Catalyz
 <pre><code>curl -H &quot;X-Api-Key: browser developer.catalyze.io 32a384f5-5d11-4214-812e-b35ced9af4d7&quot; -H &quot;Authorization: Bearer &lt;sessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; https://api.catalyze.io/v2/app -X POST -d &#39;{&quot;orgId&quot;:&quot;&lt;orgId&gt;&quot;,&quot;name&quot;: &quot;ExampleApp&quot;, &quot;description&quot;: &quot;An example for running through Catalyze guides.&quot;}&#39;
 </code></pre><p>Record the <strong>appId</strong> value for future calls.</p>
 <h3 id="from-the-dashboard-">From the Dashboard:</h3>
-<p>Go to the <a href="https://dashboard-staging.catalyze.io/applications/" target="_blank">Applications section</a> of the Dashboard and click <strong>Add new app</strong> from the left navigation bar. Fill in the name (&quot;ExampleApp&quot;) and description information. Select ExampleOrg from the list to create the application within that organization.</p>
+<p>Go to the <a href="https://dashboard.catalyze.io/applications/" target="_blank">Applications section</a> of the Dashboard and click <strong>Add new app</strong> from the left navigation bar. Fill in the name (&quot;ExampleApp&quot;) and description information. Select ExampleOrg from the list to create the application within that organization.</p>
 <p>Once the application is created, note the value of <strong>Application ID</strong> when clicking on the application in the Dashboard. That value will be used as the <strong>appId</strong> in future API calls.</p>
 <h2 id="create-an-api-key">Create an API Key</h2>
 <p>All operations against an application require an API key. In most cases only one API key is needed. This section walks through creating an API key.</p>
@@ -362,7 +362,7 @@ and configure an environment that will allow you to quickly follow other Catalyz
 <pre><code>browser example.app &lt;id&gt;
 </code></pre><p>where <strong>&lt;id&gt;</strong> is the value of <strong>id</strong> from the response JSON.</p>
 <h3 id="from-the-dashboard-">From the Dashboard:</h3>
-<p>Can&#39;t do this on staging yet.</p>
+<p>Go to the <a href="https://dashboard.catalyze.io/applications/" target="_blank">Applications section</a> of the Dashboard and click on ExampleApp and then the <strong>API Keys section</strong>. Then click the <strong>add api key</strong> button to generate a key.</p>
 <h2 id="create-users">Create Users</h2>
 <p>In this section we will create two users within ExampleApp for use in future guides:</p>
 <ul>
@@ -398,7 +398,7 @@ and configure an environment that will allow you to quickly follow other Catalyz
 <h2 id="get-an-administrator-level-session-token-and-api-key">Get an Administrator-level Session Token and API Key</h2>
 <p>For several operations within future guides, administrator-level access will be needed. In some cases these operations can be handled through the Dashboard, but not always.</p>
 <p>To perform administrator-level operations from the command line, you will need to follow the steps below to obtain a session token and transient (temporary) API key. The API key will be generated on-the-fly by the API and is only valid for use with the included session token, and only during its lifetime (currently 24 hours).</p>
-<p>First, get the <strong>appId</strong> for ExampleApp by clicking on the application within the <a href="https://dashboard-staging.catalyze.io/applications" target="_blank">Application section</a> of the Dashboard.</p>
+<p>First, get the <strong>appId</strong> for ExampleApp by clicking on the application within the <a href="https://dashboard.catalyze.io/applications" target="_blank">Application section</a> of the Dashboard.</p>
 <p>Next, use the <strong>/auth/all</strong> route using your developer portal <strong>sessionToken</strong> (from the <strong>Log In</strong> section above) to get a valid session and transient API key for ExampleApp.</p>
 <pre><code>curl -H &quot;X-Api-Key: browser developer.catalyze.io 32a384f5-5d11-4214-812e-b35ced9af4d7&quot; -H &quot;Authorization: Bearer &lt;sessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; https://api.catalyze.io/v2/auth/all -X GET
 </code></pre><p>Find the entry matching ExampleApp&#39;s <strong>appId</strong> and store the values for <strong>session</strong> and <strong>apiKey</strong>. These values will be used in other parts of the guide to perform administrator level operations. Record them for future use.</p>
@@ -409,7 +409,7 @@ We will now create a class called &quot;ExampleClass&quot;. The class has two fi
 <p>Using the values for <strong>session</strong> and <strong>apiKey</strong> from the previous section, replace the values below and run the following command.</p>
 <pre><code>curl -H &quot;X-Api-Key: &lt;apiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;session&gt;&quot; -H &quot;Content-Type: application/json&quot; https://api.catalyze.io/v2/classes -X POST -d &#39;{&quot;name&quot;:&quot;ExampleClass&quot;, &quot;schema&quot;:{&quot;name&quot;:&quot;string&quot;, &quot;type&quot;:&quot;integer&quot;},phi=true}&#39;
 </code></pre><h3 id="from-the-dashboard-">From the Dashboard:</h3>
-<p>Did not see the custom class creation button.</p>
+<p>Select ExampleApp in the Dashboard and then click the <strong>Custom Classes</strong> section. Click the <strong>add custom class</strong> button and then enter ExampleClass as the name of the class. Under the <strong>Add Entry</strong> section, create entries for <strong>name</strong> of type <strong>string</strong> and <strong>type</strong> of type <strong>integer</strong>. Click the PHI checkbox and then <strong>Add</strong> to finish creating the class.</p>
 <h2 id="summary">Summary</h2>
 <p>The purpose of this section was to get you familiar with the API and the Dashboard and get your developer account environment configured such that you are ready to complete the rest of the guides in this section.</p>
 <p>Please log in to the Dashboard and check that you see the following items to verify that this section was completed successfully:</p>
