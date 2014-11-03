@@ -7,7 +7,7 @@
         <title>ACLs for Custom Classes and Files | Catalyze BaaS Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 1.1.0">
+        <meta name="generator" content="GitBook 1.2.0">
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,7 +15,6 @@
         <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
         <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
         
-    
     
     
     <link rel="next" href="../permissions_and_acls/managing_groups.html" />
@@ -33,7 +32,7 @@
 
 
         
-    <div class="book" data-level="7.3" data-basepath=".." data-revision="1412609373427">
+    <div class="book" data-level="7.3" data-basepath=".." data-revision="1415027827238">
     
 
 <div class="book-summary">
@@ -354,7 +353,7 @@
                     <section class="normal" id="section-gitbook_9">
                     
                         <h1 id="acls-for-custom-classes-and-files">ACLs for Custom Classes and Files</h1>
-<p>In this section, we will manipulate the access control lists (ACLs) within ExampleApp to allow a regular user, Bob, to perform various operations against other users that would otherwise be impossible with default permissions. In the case of a regular user like Bob, the only data that he can manipulate (create, read, update or delete - or CRUD) by default is data he created originally, or that has been shared with him by another user, as in the previous two sections. This section shows how we can leverage ACLs to provide users with additional permissions within the application.</p>
+<p>In this section, we will manipulate the access control lists (ACLs) within ExampleApp to allow a regular user, Bob, to perform various operations against other users that would otherwise be impossible with default permissions. In the case of a regular user like Bob, the only data that he can manipulate (create, retrieve, update or delete - or CRUD) by default is data he created originally, or that has been shared with him by another user, as in the previous two sections. This section shows how we can leverage ACLs to provide users with additional permissions within the application.</p>
 <p>Values needed to run this example:</p>
 <table>
 <thead>
@@ -394,7 +393,7 @@
 </tr>
 </tbody>
 </table>
-<p>Within an application, a user can have create, read, update and delete permissions (CRUD) within files and custom classes.</p>
+<p>Within an application, a user can have create, retrieve, update and delete permissions (CRUD) within files and custom classes.</p>
 <p>Here is a summary of the permission types:</p>
 <table>
 <thead>
@@ -409,8 +408,8 @@
 <td>The ability to create data across the application.</td>
 </tr>
 <tr>
-<td><em>read</em></td>
-<td>The ability to read data across the application. Can list and query data items as well.</td>
+<td><em>retrieve</em></td>
+<td>The ability to retrieve data across the application. Can list and query data items as well.</td>
 </tr>
 <tr>
 <td><em>update</em></td>
@@ -430,22 +429,22 @@
 </code></pre><p>The drawback here is that Bob can now create files for <strong>any</strong> user, not just Alice. An upcoming release will allow entity-level permission granting, allowing Alice to grant Bob, and only Bob, the ability to create files against herself.</p>
 <p>The key concept here is that ACLs currently function at the <strong>model</strong> level within an application. Currently a model is either a custom class or a file. If a user has been granted a permission on a model it is valid only for that model. We will be extending ACLs to our clinical data models (medications, problems, procedures, etc) in time.</p>
 <h2 id="granting-full-permissions-on-files">Granting Full Permissions on Files</h2>
-<p>If we wanted to give Bob full control over files within the application we could extend his permissions to include read, update and delete permissions.</p>
-<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/core/files/&lt;bobUsersId&gt; -d &#39;[&quot;read&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
+<p>If we wanted to give Bob full control over files within the application we could extend his permissions to include retrieve, update and delete permissions.</p>
+<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/core/files/&lt;bobUsersId&gt; -d &#39;[&quot;retrieve&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
 </code></pre><p>Bob now can perform any operation against any other user&#39;s files within the application.</p>
 <h2 id="granting-full-permissions-on-a-custom-class">Granting Full Permissions on a Custom Class</h2>
 <p>Granting permission against specific custom classes is also possible. The route is changes slightly (<strong>/core/files</strong> becomes <strong>/custom/&lt;className&gt;</strong>) but otherwise the call is the same:</p>
-<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/custom/ExampleClass/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;,&quot;read&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
+<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/custom/ExampleClass/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;,&quot;retrieve&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
 </code></pre><p>The above call results in Bob having full permissions against the custom class named ExampleClass.</p>
 <h2 id="revoking-acls-on-files">Revoking ACLs on Files</h2>
 <p>Revoking ACLs is a matter of simply changing the POST from the above examples into a DELETE. The following command will revoke Bob&#39;s create permissions on files.</p>
 <pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X DELETE https://api.catalyze.io/v2/acl/core/files/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;]&#39;
 </code></pre><p>Revoke the remaidner of the permissions with this command:</p>
-<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X DELETE https://api.catalyze.io/v2/acl/core/files/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;,&quot;read&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
+<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X DELETE https://api.catalyze.io/v2/acl/core/files/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;,&quot;retrieve&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
 </code></pre><p>After running the above commands Bob is back to having default permissions on files. He can only manipulate his own data however any files that he created while he held create permissions will still be accessible to him.</p>
 <h2 id="revoking-acls-on-custom-classes">Revoking ACLs on Custom Classes</h2>
 <p>Revoking permissions on ExampleClass is almost the same as revoking file permissions, aside from a few changes to the route:</p>
-<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X DELETE https://api.catalyze.io/v2/acl/custom/ExampleClass/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;,&quot;read&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
+<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X DELETE https://api.catalyze.io/v2/acl/custom/ExampleClass/&lt;bobUsersId&gt; -d &#39;[&quot;create&quot;,&quot;retrieve&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
 </code></pre>
                     
                     </section>

@@ -7,7 +7,7 @@
         <title>Managing Groups | Catalyze BaaS Guide</title>
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 1.1.0">
+        <meta name="generator" content="GitBook 1.2.0">
         <meta name="HandheldFriendly" content="true"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,7 +15,6 @@
         <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../gitbook/images/apple-touch-icon-precomposed-152.png">
         <link rel="shortcut icon" href="../gitbook/images/favicon.ico" type="image/x-icon">
         
-    
     
     
     <link rel="next" href="../clinical_data_models/README.html" />
@@ -33,7 +32,7 @@
 
 
         
-    <div class="book" data-level="7.4" data-basepath=".." data-revision="1412609373427">
+    <div class="book" data-level="7.4" data-basepath=".." data-revision="1415027827238">
     
 
 <div class="book-summary">
@@ -413,17 +412,17 @@
 </code></pre><p>Alice&#39;s <strong>usersId</strong> and Bob&#39;s <strong>usersId</strong> should appear in the list returned.</p>
 <h2 id="granting-examplegroup-full-permissions-on-files">Granting ExampleGroup Full Permissions on Files</h2>
 <p>The previous section shows how ACLs work for individual users. A nice feature of the API is that the ACL functionality works exactly the same for users and groups. The following command will give the group full permissions on files. The call is exactly the same as the one we used to give Bob these permissions but here we substitute Bob&#39;s <strong>usersId</strong> for the <em>*groupsId</em> for the group we just created.</p>
-<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/core/files/&lt;groupsId&gt; -d &#39;[&quot;create&quot;,&quot;read&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
+<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/core/files/&lt;groupsId&gt; -d &#39;[&quot;create&quot;,&quot;retrieve&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
 </code></pre><p>Any member of the group now can perform any operation against any other user&#39;s files within the application. New members added to the group will receive these permissions as well. Removing a user from the group will revoke their permissions.</p>
 <p>Note that Alice is in the group and thus has full permissions on files in two ways: her role (supervisor) and her group membership in ExampleGroup. These are independent permissions, meaning that if we remove Alice from the group she will still retain full control over files from her role as a supervisor.</p>
 <h2 id="granting-examplegroup-full-permissions-on-a-custom-class">Granting ExampleGroup Full Permissions on a Custom Class</h2>
 <p>The call to grant group permissions to ExampleClass is the same as in the previous section, again swapping Bob&#39;s usersId for the groupsId. Again, note that the route changes slightly from the previous call (<strong>/core/files</strong> becomes <strong>/custom/&lt;className&gt;</strong>).</p>
-<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/custom/ExampleClass/&lt;groupsId&gt; -d &#39;[&quot;create&quot;,&quot;read&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
+<pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/custom/ExampleClass/&lt;groupsId&gt; -d &#39;[&quot;create&quot;,&quot;retrieve&quot;,&quot;update&quot;,&quot;delete&quot;]&#39;
 </code></pre><p>The above call results in Bob having full permissions against the custom class named ExampleClass. Alice effectively has the same permissions as she already had as a supervisor.</p>
 <h2 id="removoke-group-permissions">Removoke Group Permissions</h2>
 <p>Revoking group permissions works in the same manner as revoking user permissions. This call will revoke the group&#39;s delete permissions for files:</p>
 <pre><code>curl -H &quot;X-Api-Key: &lt;adminApiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;adminSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X POST https://api.catalyze.io/v2/acl/core/files/&lt;groupsId&gt; -d &#39;[&quot;delete&quot;]&#39;
-</code></pre><p>Here we revoke delete permission but create, read and update are retained.</p>
+</code></pre><p>Here we revoke delete permission but create, retrieve and update are retained.</p>
 <h2 id="remove-a-user-from-a-group">Remove a User from a Group</h2>
 <p>Removing users from groups is simply a matter of changing the method to DELETE in the call used above to add Bob to the group:</p>
 <pre><code>curl -H &quot;X-Api-Key: &lt;apiKey&gt;&quot; -H &quot;Authorization: Bearer &lt;aliceSessionToken&gt;&quot; -H &quot;Content-Type: application/json&quot; -X DELETE https://api.catalyze.io/v2/groups/&lt;groupsId&gt;/users/&lt;bobUsersId&gt;
