@@ -175,7 +175,7 @@ We will now create a class called "ExampleClass". The class has two fields: **na
 
 Using the values for **session** and **apiKey** from the previous section, replace the values below and run the following command.
 
-    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <session>" -H "Content-Type: application/json" https://api.catalyze.io/v2/classes -X POST -d '{"name":"ExampleClass", "schema":{"name":"string", "type":"integer"},phi=true}'
+    curl -H "X-Api-Key: <apiKey>" -H "Authorization: Bearer <session>" -H "Content-Type: application/json" https://api.catalyze.io/v2/classes -X POST -d '{"name":"ExampleClass", "schema":{"name":"string", "type":"integer"},"phi":true}'
 
 ### From the Dashboard:
 
